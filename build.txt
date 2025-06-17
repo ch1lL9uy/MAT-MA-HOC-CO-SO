@@ -1,0 +1,5 @@
+- biên dịch từng file
+g++ -std=c++17 -I include src/aes.cpp src/hash.cpp src/compressor.cpp src/hmac.cpp src/main.cpp -o MatMaHocCoSo.exe
+
+- biên dịch toàn bộ trong src
+g++ -std=c++17 -I include src/*.cpp -o MatMaHocCoSo.exe
