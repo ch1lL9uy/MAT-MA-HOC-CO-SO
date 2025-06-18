@@ -26,6 +26,11 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // Nhập key
+    std::string k;
+    std::cout << "\nEnter key: ";
+    std::getline(std::cin, k);
+
     auto total_start = high_resolution_clock::now();
 
     // Đọc dữ liệu từ file cần giải mã
@@ -35,11 +40,7 @@ int main(int argc, char* argv[]) {
     auto read_end = high_resolution_clock::now();
     std::cout << "Read complete. File size: " << buffer.size() << " bytes\n";
 
-    // Nhập key và thực hiện băm key
-    std::string k;
-    std::cout << "\nEnter key: ";
-    std::getline(std::cin, k);
-
+    // Băm key
     std::cout << "Hashing key...\n";
     auto hash_start = high_resolution_clock::now();
     SHA256 sha256;
@@ -76,7 +77,6 @@ int main(int argc, char* argv[]) {
 
     // Ghi dữ liệu vào file 7z
     fs::path zipFile = inputPath; zipFile = zipFile.replace_extension(".7z");
-    fs::path outputFolder = zipFile.parent_path();
 
     std::cout << "Writing decrypted archive...\n";
     auto write_start = high_resolution_clock::now();
@@ -87,8 +87,10 @@ int main(int argc, char* argv[]) {
     auto write_end = high_resolution_clock::now();
     std::cout << "Written to: " << zipFile << "\n";
 
+    // Thực hiện giải nén file 7z
     std::cout << "Decompressing archive...\n";
     auto decompress_start = high_resolution_clock::now();
+    fs::path outputFolder = zipFile.parent_path();
     if (!Compressor::decompress(plaintext, zipFile, outputFolder)) {
         return 1;
     }

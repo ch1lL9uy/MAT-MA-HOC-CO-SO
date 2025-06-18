@@ -25,6 +25,11 @@ int main(int argc, char* argv[]) {
         std::cerr << "Path does not exist: " << inputPath << "\n";
         return 1;
     }
+
+    // Nhập key
+    std::cout << "\nEnter key: ";
+    std::string k;
+    std::getline(std::cin, k);
     
     auto total_start = high_resolution_clock::now();
 
@@ -46,11 +51,7 @@ int main(int argc, char* argv[]) {
     auto read_end = high_resolution_clock::now();
     std::cout << "Read complete. File size: " << buffer.size() << " bytes\n";
 
-    // Nhập và băm key
-    std::cout << "\nEnter key: ";
-    std::string k;
-    std::getline(std::cin, k);
-
+    // Băm key
     std::cout << "Hashing key...\n";
     auto hash_start = high_resolution_clock::now();
     SHA256 hash;

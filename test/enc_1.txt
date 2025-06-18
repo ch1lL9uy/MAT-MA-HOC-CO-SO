@@ -1,0 +1,40 @@
+D:\MatMaHoc>Encrypt.exe "D:/Downloads/smileyctf2025"
+
+Enter key: abc@123
+Compressing input...
+Executing: 7z a -t7z -mmt=on -ms=off "D:/Downloads/smileyctf2025.7z" "D:/Downloads/smileyctf2025" -mx=1
+
+7-Zip 24.09 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-11-29
+
+Scanning the drive:
+7 folders, 15 files, 622379094 bytes (594 MiB)
+
+Creating archive: D:/Downloads/smileyctf2025.7z
+
+Add new data to archive: 7 folders, 15 files, 622379094 bytes (594 MiB)
+
+
+Files read from disk: 15
+Archive size: 96106713 bytes (92 MiB)
+Everything is Ok
+Compression complete: smileyctf2025.7z
+Reading compressed file...
+Read complete. File size: 96106713 bytes
+Hashing key...
+Key hashing complete
+Encrypting with AES...
+AES encryption complete
+Building encrypted format...
+Encrypted format built successfully
+Writing encrypted file...
+File written: "D:/Downloads/smileyctf2025.aes"
+
+
+===== Time taken and speed =====
+Compression     : 6160 ms
+Read file       : 46 ms (1990.1 MB/s)
+Hash key        : 0 ms
+AES Encryption  : 3052 ms (30.0276 MB/s)
+Format building : 600 ms
+Write file      : 155 ms (590.671 MB/s)
+Total time      : 10061 ms

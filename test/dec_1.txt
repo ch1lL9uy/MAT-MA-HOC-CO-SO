@@ -1,0 +1,48 @@
+D:\MatMaHoc>Decrypt.exe "D:/Downloads/smileyctf2025.aes"
+
+Enter key: abc@123
+Reading encrypted file...
+Read complete. File size: 96106757 bytes
+Hashing key...
+Key hashing complete
+Parsing encrypted format...
+Format verified and HMAC valid
+Decrypting AES...
+AES decryption complete
+Writing decrypted archive...
+Written to: "D:/Downloads/smileyctf2025.7z"
+Decompressing archive...
+Extracting: 7z x "D:/Downloads/smileyctf2025.7z" -o"D:/Downloads" -y
+
+7-Zip 24.09 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-11-29
+
+Scanning the drive for archives:
+1 file, 96106713 bytes (92 MiB)
+
+Extracting archive: D:\Downloads\smileyctf2025.7z
+--
+Path = D:\Downloads\smileyctf2025.7z
+Type = 7z
+Physical Size = 96106713
+Headers Size = 621
+Method = LZMA2:18
+Solid = -
+Blocks = 15
+
+Everything is Ok
+
+Folders: 7
+Files: 15
+Size:       622379094
+Compressed: 96106713
+Decompression complete.
+
+
+===== Time taken and speed =====
+Read encrypted  : 47 ms (1936.19 MB/s)
+Hash key        : 0 ms
+Parse format    : 606 ms
+AES Decryption  : 2806 ms (32.6551 MB/s)
+Write zip       : 153 ms (596.209 MB/s)
+Decompress      : 1483 ms
+Total time      : 5125 ms
