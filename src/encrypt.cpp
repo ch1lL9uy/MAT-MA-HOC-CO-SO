@@ -1,7 +1,7 @@
 #include <iostream>
 #include <filesystem>
-#include <fstream>
 #include <chrono>
+#include <string>
 
 #include "aes.h"
 #include "hash.h"
@@ -20,53 +20,75 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    auto total_start = high_resolution_clock::now();
-
     fs::path inputPath(argv[1]);
     if (!fs::exists(inputPath)) {
         std::cerr << "Path does not exist: " << inputPath << "\n";
         return 1;
     }
+    
+    auto total_start = high_resolution_clock::now();
 
     // Nén
+    std::cout << "Compressing input...\n";
     auto compress_start = high_resolution_clock::now();
     Compressor compressor(inputPath);
-    compressor.compress();
+    if (!compressor.compress()) {
+        return 1;
+    }
     std::string zipFile = compressor.getOutputName();
     auto compress_end = high_resolution_clock::now();
 
     // Đọc file nén
+    std::cout << "Reading compressed file...\n";
     auto read_start = high_resolution_clock::now();
-    fs::path inputFile = inputPath.parent_path() / zipFile;
-    std::vector<uint8_t> buffer = readFileAsBytes(inputFile.string());
+    fs::path inputZipFile = inputPath.parent_path() / zipFile;
+    std::vector<uint8_t> buffer = readFileAsBytes(inputZipFile);
     auto read_end = high_resolution_clock::now();
+    std::cout << "Read complete. File size: " << buffer.size() << " bytes\n";
 
     // Nhập và băm key
     std::cout << "\nEnter key: ";
     std::string k;
     std::getline(std::cin, k);
 
+    std::cout << "Hashing key...\n";
     auto hash_start = high_resolution_clock::now();
     SHA256 hash;
     std::vector<uint8_t> key = hash.hash(std::vector<uint8_t>(k.begin(), k.end()));
     auto hash_end = high_resolution_clock::now();
+    std::cout << "Key hashing complete\n";
 
     // Mã hóa AES
+    std::cout << "Encrypting with AES...\n";
     auto encrypt_start = high_resolution_clock::now();
     AES aes(key, AES::Mode::ECB);
     std::vector<uint8_t> ciphertext = aes.encrypt(buffer);
     auto encrypt_end = high_resolution_clock::now();
+    std::cout << "AES encryption complete\n";
 
     // Tạo định dạng file mã hóa
+    std::cout << "Building encrypted format...\n";
     auto format_start = high_resolution_clock::now();
     ciphertext = buildEncryptedFormat(ciphertext, key, {}, 0);
     auto format_end = high_resolution_clock::now();
+    std::cout << "Encrypted format built successfully\n";
 
     // Ghi file mã hóa
+    std::cout << "Writing encrypted file...\n";
     auto write_start = high_resolution_clock::now();
-    std::string outputFile = inputFile.stem().string() + ".aes";
-    writeFileAsBytes(outputFile, ciphertext);
+    fs::path outputFile = inputZipFile; outputFile.replace_extension(".aes");
+    if (!writeFileAsBytes(outputFile, ciphertext)) {
+        std::cerr << "Failed to write file\n";
+        return 1;
+    }
     auto write_end = high_resolution_clock::now();
+    std::cout << "File written: " << outputFile << "\n";
+
+    // Thực hiện xóa đi dữ liệu gốc
+    fs::remove_all(inputPath.string().c_str());
+
+    // Thực hiện xóa đi file nén 7z
+    fs::remove_all(inputZipFile.string().c_str());
 
     auto total_end = high_resolution_clock::now();
 

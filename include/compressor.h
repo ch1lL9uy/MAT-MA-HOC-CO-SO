@@ -2,6 +2,8 @@
 
 #include <string>
 #include <filesystem>
+#include <vector>
+#include <cstdint>
 
 namespace fs = std::filesystem;
 
@@ -13,8 +15,10 @@ public:
     // Nén file hoặc thư mục
     bool compress();
 
+    static bool checkFormat7z(const std::vector<uint8_t>& plaintext);
+
     // Giải nén
-    bool decompress(const fs::path& archivePath, const fs::path& destination);
+    static bool decompress(const std::vector<uint8_t>& plaintext, const fs::path& archivePath, const fs::path& destination);
 
     // Lấy tên file nén
     std::string getOutputName();

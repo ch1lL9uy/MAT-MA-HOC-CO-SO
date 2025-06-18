@@ -3,5 +3,6 @@
 #include <vector>
 #include <cstdint>
 #include <string>
+#include <filesystem>
 
-std::vector<uint8_t> readFileAsBytes(const std::string& filename);
+std::vector<uint8_t> readFileAsBytes(const std::filesystem::path& filename);

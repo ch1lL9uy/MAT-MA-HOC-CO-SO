@@ -2,11 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <filesystem>
 
-std::vector<uint8_t> readFileAsBytes(const std::string& filename) {
+std::vector<uint8_t> readFileAsBytes(const std::filesystem::path& filename) {
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
-        std::cerr << "Khong the mo file: " << filename << std::endl;
+        std::cerr << "Cannot open file: " << filename << "\n";
         return {};
     }
     file.seekg(0, std::ios::end);

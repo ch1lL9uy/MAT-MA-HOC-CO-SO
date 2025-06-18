@@ -1,0 +1,40 @@
+D:\MatMaHoc>.\Encrypt.exe "D:/Downloads/myblog"
+Compressing input...
+Executing: 7z a -t7z -mmt=on -ms=off "D:/Downloads/myblog.7z" "D:/Downloads/myblog" -mx=1
+
+7-Zip 24.09 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-11-29
+
+Scanning the drive:
+498 folders, 988 files, 976801684 bytes (932 MiB)
+
+Creating archive: D:/Downloads/myblog.7z
+
+Add new data to archive: 498 folders, 988 files, 976801684 bytes (932 MiB)
+
+
+Files read from disk: 988
+Archive size: 970802883 bytes (926 MiB)
+Everything is Ok
+Compression complete: myblog.7z
+Reading compressed file...
+Read complete. File size: 970802883 bytes
+
+Enter key: abc@123
+Hashing key...
+Key hashing complete
+Encrypting with AES...
+AES encryption complete
+Building encrypted format...
+Encrypted format built successfully
+Writing encrypted file...
+File written: "D:/Downloads/myblog.aes"
+
+
+===== Time taken and speed =====
+Compression     : 48136 ms
+Read file       : 378 ms (2446.69 MB/s)
+Hash key        : 0 ms
+AES Encryption  : 134690 ms (6.87377 MB/s)
+Format building : 10909 ms
+Write file      : 1690 ms (547.723 MB/s)
+Total time      : 208030 ms

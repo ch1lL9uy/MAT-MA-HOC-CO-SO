@@ -4,9 +4,10 @@
 #include <cstdint>
 #include <string>
 
-std::vector<uint8_t> buildEncryptedFormat(
-    const std::vector<uint8_t>& cipherText,
-    const std::vector<uint8_t>& key,
-    const std::vector<uint8_t>& iv,
-    uint8_t mode      
-);
+struct DecryptionResult {
+    uint8_t mode;
+    std::vector<uint8_t> iv;
+    std::vector<uint8_t> ciphertext;
+};
+
+DecryptionResult parseEncryptedFormat(const std::vector<uint8_t>& data, std::vector<uint8_t>& key);
