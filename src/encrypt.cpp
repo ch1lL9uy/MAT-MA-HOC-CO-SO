@@ -62,15 +62,22 @@ int main(int argc, char* argv[]) {
     // Mã hóa AES
     std::cout << "Encrypting with AES...\n";
     auto encrypt_start = high_resolution_clock::now();
-    AES aes(key, AES::Mode::ECB);
-    std::vector<uint8_t> ciphertext = aes.encrypt(buffer);
+    AES aes(key, AES::Mode::CBC);
+
+    // Tạo iv nếu không phải là mode ECB
+    std::vector<uint8_t> iv;
+    if (aes.mode_ != AES::Mode::ECB) {
+        iv = aes.generateRandomIV();
+    }
+    
+    std::vector<uint8_t> ciphertext = aes.encrypt(buffer, iv);
     auto encrypt_end = high_resolution_clock::now();
     std::cout << "AES encryption complete\n";
 
     // Tạo định dạng file mã hóa
     std::cout << "Building encrypted format...\n";
     auto format_start = high_resolution_clock::now();
-    ciphertext = buildEncryptedFormat(ciphertext, key, {}, 0);
+    ciphertext = buildEncryptedFormat(ciphertext, key, iv, static_cast<uint8_t>(aes.mode_));
     auto format_end = high_resolution_clock::now();
     std::cout << "Encrypted format built successfully\n";
 
