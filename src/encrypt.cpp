@@ -62,7 +62,8 @@ int main(int argc, char* argv[]) {
     // Mã hóa AES
     std::cout << "Encrypting with AES...\n";
     auto encrypt_start = high_resolution_clock::now();
-    AES aes(key, AES::Mode::CBC);
+    key.resize(16);
+    AES aes(key, AES::Mode::ECB);
 
     // Tạo iv nếu không phải là mode ECB
     std::vector<uint8_t> iv;
