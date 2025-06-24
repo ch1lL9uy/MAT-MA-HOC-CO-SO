@@ -1,6 +1,0 @@
-- Sử dụng MakeFile:
-    - Build tối ưu hóa (-O3): make hoặc make all (nên sử dụng cái này để đạt được tốc độ tốt nhất)
-    - Build để debug (-O0 -g): make debug
-    - Build riêng lẻ: make Encrypt.exe hoặc make Decrypt.exe
-    - Dọn sạch file build và build tối ưu hóa: make release
-    - Dọn file build: make clean
